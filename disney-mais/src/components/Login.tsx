@@ -1,4 +1,39 @@
 import styled from 'styled-components';
+import React from 'react';
+
+interface LoginProps {}
+
+const Login: React.FC<LoginProps> = (props) => {
+    return (
+        <Container>
+            <Content>
+                <CTA>
+                    <CTAText>
+                        <span>Stream brand new Originals, blockbusters, binge-worthy series and more</span>
+                        <div style={textWithMarginTop}>All at no extra cost. Cancel at any time.*</div>
+                    </CTAText>
+                    <SignUpEmail>
+                            <div style={textWithMarginBottom}>Enter your email to create or restart your subscription.</div>
+                            <div>
+                                <SignupButton>
+                                    <input type="text" placeholder="Email" />
+                                    <span>SIGN UP NOW</span>
+                                </SignupButton>
+                            </div>
+                            <div style={textWithMarginTop}>Get 12 months for the price of 10 with an annual subscription, compared to paying monthly.</div>
+                    </SignUpEmail>                    
+                    <SmallText>
+                        <small>
+                            <div>*Effective at the end of the billing period. Subscription required.</div>
+                            <div style={welcomeText}>Welcome to Wrexham S3 streaming June 12.</div>
+                        </small>
+                    </SmallText>
+                </CTA>
+                <BgImage />
+            </Content>
+        </Container>
+    );
+}
 
 const Container = styled.section`
 overflow: hidden;
@@ -59,11 +94,11 @@ font-size: 50px;
 font-weight: bolder;
 `;
 
-const Disclaimer = styled.span`
+const SignUpEmail = styled.span`
 color: silver;
 `;
 
-const Signup = styled.div`
+const SignupButton = styled.div`
   color: #02172a;
   margin-bottom: 12px;
   width: 100%;
@@ -127,52 +162,19 @@ font-size: 0.9em;
 margin-top: 20px;
 `;
 
-const divStyle = {
+const welcomeText = {
     fontStyle: 'italic',
 };
 
-const t = { 
+const textWithMarginTop: React.CSSProperties = { 
     marginTop: '25px',
     fontFamily: 'inherit',    
     fontSize: '20px',
 }
 
-const a = { 
+const textWithMarginBottom: React.CSSProperties = { 
     marginBottom: '10px',
     marginTop: '20px',
-}
-
-
-const Login = (props) => {
-    return (
-        <Container>
-            <Content>
-                <CTA>
-                    <CTAText>
-                        <span>Stream brand new Originals, blockbusters, binge-worthy series and more</span>
-                        <div style={t}>All at no extra cost. Cancel at any time.*</div>
-                    </CTAText>
-                    <Disclaimer>
-                            <div style={a}>Enter your email to create or restart your subscription.</div>
-                            <div>
-                                <Signup>
-                                    <input type="text" placeholder="Email" />
-                                    <span>SIGN UP NOW</span>
-                                </Signup>
-                            </div>
-                            <div style={t}>Get 12 months for the price of 10 with an annual subscription, compared to paying monthly.</div>
-                    </Disclaimer>                    
-                    <SmallText>
-                        <small>
-                            <div>*Effective at the end of the billing period. Subscription required.</div>
-                            <div style={divStyle}>Welcome to Wrexham S3 streaming June 12.</div>
-                        </small>
-                    </SmallText>
-                </CTA>
-                <BgImage />
-            </Content>
-        </Container>
-    );
 }
 
 export default Login;
