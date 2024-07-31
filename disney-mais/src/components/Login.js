@@ -1,0 +1,178 @@
+import styled from 'styled-components';
+
+const Container = styled.section`
+overflow: hidden;
+display: flex;
+flex-direction: column;
+text-align: center;
+height: 100vh;
+`;
+
+const Content = styled.div`
+margin-bottom: 10vw;
+width: 100%;
+
+min-height: 100vh;
+box-sizing: border-box;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+padding: 80px 40px;
+height: 100%;
+`;
+
+const BgImage = styled.div`
+height: 100%;
+background-position: top;
+background-size: 100%;
+background-repeat: no-repeat;
+background-image: url('/images/login0background.jpeg');
+position: absolute;
+top: 0;
+right: 0;
+left: 0;
+z-index: -1;
+`;
+
+const CTA = styled.div`
+margin-bottom: 2vw;
+flex-wrap: wrap;
+display: flex;
+flex-direction: column;
+justify-content: center;
+margin-top: 0;
+margin-right: auto;
+margin-left: auto;
+align-items: center;
+text-align: center;
+transition-timing-function: ease-out;
+trnasition: opacity 0.2s;
+width: 100%;
+`;
+
+const CTAText = styled.span`
+width: 75%;
+margin: 300px 0 0 0;
+padding: 0;
+font-size: 50px;
+font-weight: bolder;
+`;
+
+const Disclaimer = styled.span`
+color: silver;
+`;
+
+const Signup = styled.div`
+  color: #02172a;
+  margin-bottom: 12px;
+  width: 100%;
+  letter-spacing: 1.76px;
+  font-size: 16px;
+  padding: 16.5px 16.5px;
+  margin: 8px 0 12px;
+  font-family: inherit;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    margin-right: 10px;
+    background-color: #02d6e8;
+    border: 1px solid #02d6e8;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    width: 30%;
+
+    &:hover {
+        background-color: #00b6c3;
+    }
+  }
+
+  input {
+    font-size: 18px;
+    font-family: inherit;
+    padding: 11px;
+    background-color: #31343e;
+    color: #868891;
+    border: 1px solid #31343e;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    width: 55%;    
+    outline: none;
+    margin-left: 1px;
+    
+    &:focus {
+        outline: solid 1px #868891;
+        border: 0;
+        padding: 10px;
+    }
+  }
+
+  
+`;
+
+const SmallText = styled.small`
+color: silver;
+font-size: 0.9em;
+margin-top: 20px;
+`;
+
+const divStyle = {
+    fontStyle: 'italic',
+};
+
+const t = { 
+    marginTop: '25px',
+    fontFamily: 'inherit',    
+    fontSize: '20px',
+}
+
+const a = { 
+    marginBottom: '10px',
+    marginTop: '20px',
+}
+
+
+const Login = (props) => {
+    return (
+        <Container>
+            <Content>
+                <CTA>
+                    <CTAText>
+                        <span>Stream brand new Originals, blockbusters, binge-worthy series and more</span>
+                        <div style={t}>All at no extra cost. Cancel at any time.*</div>
+                    </CTAText>
+                    <Disclaimer>
+                            <div style={a}>Enter your email to create or restart your subscription.</div>
+                            <div>
+                                <Signup>
+                                    <input type="text" placeholder="Email" />
+                                    <span>SIGN UP NOW</span>
+                                </Signup>
+                            </div>
+                            <div style={t}>Get 12 months for the price of 10 with an annual subscription, compared to paying monthly.</div>
+                    </Disclaimer>                    
+                    <SmallText>
+                        <small>
+                            <div>*Effective at the end of the billing period. Subscription required.</div>
+                            <div style={divStyle}>Welcome to Wrexham S3 streaming June 12.</div>
+                        </small>
+                    </SmallText>
+                </CTA>
+                <BgImage />
+            </Content>
+        </Container>
+    );
+}
+
+export default Login;
