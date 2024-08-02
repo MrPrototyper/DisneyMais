@@ -1,16 +1,17 @@
 import './App.scss';
-import {BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Login from './components/Login';
+import Header from './components/Header';
+import Home from './components/Home';
 
 function App() {
   return (
     <div className="App"> 
-      <Router>                
-          {/* <nav>
-            <Link to="/">Test</Link>              
-          </nav> */}
-          <Routes>
-            <Route path="/" element={<Login />} />
+      <Router>                          
+          <Header />
+          <Routes>            
+            <Route path="/" element={<Login />} />            
+            <Route path="/home" element={<Home />} />            
           </Routes>        
       </Router>     
     </div>
