@@ -1,6 +1,6 @@
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '../../store/store';
-import { FETCH_USER_REQUEST, FETCH_USER_SUCCESS, FETCH_USER_FAILURE, LOGIN_USER, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE } from './actionTypes';
+import { FETCH_USER_REQUEST, FETCH_USER_SUCCESS, FETCH_USER_FAILURE, LOGIN_USER, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE, LOGOUT_USER } from './actionTypes';
 import { fetchUserData, triggerLogin } from './api';
 import { User } from './user';
 
@@ -26,6 +26,10 @@ interface LoginUserSuccessAction {
 interface LoginUserFailureAction {
   type: typeof LOGIN_USER_FAILURE;
   payload: string;
+}
+
+interface LogoutUserAction {
+  type: typeof LOGOUT_USER;  
 }
 
 export const fetchUserRequest = (): FetchUserRequestAction => ({
@@ -64,6 +68,10 @@ export const loginUserSuccess = (response: boolean): LoginUserSuccessAction => (
 export const loginUserFailure = (error: string): LoginUserFailureAction => ({
   type: LOGIN_USER_FAILURE,
   payload: error,
+});
+
+export const logoutUser = (): LogoutUserAction => ({
+  type: LOGOUT_USER,  
 });
 
 export const loginUser = (loginInfo: {email: string, password: string}): ThunkAction<void, RootState, unknown, UserActionTypes> => async dispatch => {

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../store/store";
 import { useEffect } from "react";
-import { fetchUser, loginUser } from "../features/user/actions";
+import { loginUser, logoutUser } from "../features/user/actions";
 
 interface HeaderProps { }
 
@@ -26,6 +26,11 @@ const Header: React.FC<HeaderProps> = (props) => {
     const handleLogin = () => {
         dispatch(loginUser({ email: 'tiago@disney.com', password: '123456' }));        
     }
+
+    const handleLogout = () => {
+         dispatch(logoutUser());
+         navigate('/');
+    };
 
     return (
         <Nav isAuthenticated={!!currentUser}>{
@@ -61,7 +66,13 @@ const Header: React.FC<HeaderProps> = (props) => {
                 </NavMenu> : null
             }{
                 !currentUser ? <Login onClick={handleLogin}>LOG IN</Login> :
-                    (currentUser && currentUser.photo && currentUser.name) ? <UserImg src={currentUser.photo} alt={currentUser.name} /> : null
+                    (currentUser && currentUser.photo && currentUser.name) ? 
+                    <SignOut>
+                        <UserImg src={currentUser.photo} alt={currentUser.name} />
+                        <DropDown>                            
+                            <span onClick={handleLogout}>Sign out</span>
+                        </DropDown>
+                    </SignOut> : null                    
             }
         </Nav>
     );
@@ -185,6 +196,45 @@ const UserImg = styled.img`
     transition: all 0.2s ease 0s;
     border: 2px solid transparent;
     margin-right: 10px;
+`;
+
+const DropDown = styled.div`
+    position: absolute;
+    top: 48px;
+    right: 0px;
+    background: rgb(19, 19, 19);
+    border: 1px solid rgba(151, 151, 151, 0.34);
+    border-radius: 4px;
+    box-shadow: rgb(0 0 0 / 50%) 0px 0px 18px 0px;
+    padding: 10px;
+    font-size: 14px;
+    letter-spacing: 3px;
+    width: 100px;
+    opacity: 0;    
+`;
+
+const SignOut = styled.div`
+    position: relative;
+    height: 48px;
+    width: 48px;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+
+    ${UserImg} {
+        border-radius: 50%;
+        width: 100%;
+        height: 100%;
+    }
+
+    &:hover {
+        ${DropDown} {
+            opacity: 1;
+            display: block;
+            transition-duration: 1s;
+        }
+    }
 `;
 
 export default Header;
