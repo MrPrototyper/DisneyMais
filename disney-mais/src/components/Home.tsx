@@ -1,5 +1,6 @@
 import  styled from 'styled-components';
 import ImgSlider from './ImgSlider';
+import Viewer from './Viewer';
 
 interface HomeProps { }
 
@@ -7,7 +8,8 @@ const Home : React.FC<HomeProps> = (props) => {
     return (
         <Container>
             <ImgSlider />
-        </Container>        
+            <Viewer />
+        </Container>              
     );
 };
 
