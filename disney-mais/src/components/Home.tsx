@@ -1,6 +1,7 @@
 import  styled from 'styled-components';
 import ImgSlider from './ImgSlider';
 import Viewer from './Viewer';
+import Recommend from './Recommends';
 
 interface HomeProps { }
 
@@ -9,6 +10,7 @@ const Home : React.FC<HomeProps> = (props) => {
         <Container>
             <ImgSlider />
             <Viewer />
+            <Recommend />            
         </Container>              
     );
 };
