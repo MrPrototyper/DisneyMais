@@ -1,10 +1,13 @@
 import  styled from 'styled-components';
+import ImgSlider from './ImgSlider';
 
 interface HomeProps { }
 
 const Home : React.FC<HomeProps> = (props) => {
     return (
-        <Container>Home</Container>        
+        <Container>
+            <ImgSlider />
+        </Container>        
     );
 };
 
