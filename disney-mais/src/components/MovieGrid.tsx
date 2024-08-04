@@ -1,16 +1,20 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import React from "react";
+import { Movie } from "../features/movie/movie";
 
-interface RecommendProps { }
+interface MovieGridProps { 
+    movies: Movie[];
+    title: string;
+}
 
-const Recommend: React.FC<RecommendProps> = (props) => {
+const MovieGrid: React.FC<MovieGridProps> = ({movies, title}) => {    
     return (
-        <Container>
-            <Title>Recommended for You</Title>
+        <Container>            
+            <Title>{ title }</Title>
             <Content>
                 <Wrap>
-                    <Link to="/detail">
+                    <Link to="/detail">                        
                         <img src="/images/viewers-marvel.png"></img>
                     </Link>
                 </Wrap>
@@ -89,5 +93,4 @@ const Wrap = styled.div`
     }
 `;
 
-
-export default Recommend;
+export default MovieGrid;

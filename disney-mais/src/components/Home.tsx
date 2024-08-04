@@ -1,17 +1,40 @@
-import  styled from 'styled-components';
+import styled from 'styled-components';
 import ImgSlider from './ImgSlider';
 import Viewer from './Viewer';
-import Recommend from './Recommends';
+import MovieGrid from './MovieGrid';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import { useEffect } from 'react';
+import { getAllMovies } from '../features/movie/actions';
 
 interface HomeProps { }
 
-const Home : React.FC<HomeProps> = (props) => {
+const Home: React.FC<HomeProps> = (props) => {
+    const dispatch = useDispatch();
+    const { loading,
+        recommended,
+        newDisney,
+        originals,
+        trending,
+        error } = useSelector((state: RootState) => state.movies);
+
+    useEffect(() => {
+        dispatch(getAllMovies());
+    }, [dispatch]);
+    
     return (
         <Container>
             <ImgSlider />
             <Viewer />
-            <Recommend />            
-        </Container>              
+            {/* Recommended */}            
+            <MovieGrid movies={recommended} title='Recommended for you' />
+            {/* New Disney */}
+            <MovieGrid movies={newDisney} title='New to Disney' />
+            {/* Originals */}
+            <MovieGrid movies={originals} title='Originals' />
+            {/* Trending */}
+            <MovieGrid movies={trending} title='Trending' />
+        </Container>
     );
 };
 
