@@ -3,41 +3,21 @@ import { Link } from "react-router-dom";
 import React from "react";
 import { Movie } from "../features/movie/movie";
 
-interface MovieGridProps { 
+interface MovieGridProps {
     movies: Movie[];
     title: string;
 }
 
-const MovieGrid: React.FC<MovieGridProps> = ({movies, title}) => {    
+const MovieGrid: React.FC<MovieGridProps> = ({ movies, title }) => {
     return (
-        <Container>            
-            <Title>{ title }</Title>
+        <Container>
+            <Title>{title}</Title>
             <Content>
-                <Wrap>
-                    <Link to="/detail">                        
-                        <img src="/images/viewers-marvel.png"></img>
-                    </Link>
-                </Wrap>
-                <Wrap>
+                {movies.map((movie) => (<Wrap>
                     <Link to="/detail">
-                        <img src="/images/viewers-marvel.png"></img>
+                        <img src={movie.coverUrl}></img>
                     </Link>
-                </Wrap>
-                <Wrap>
-                    <Link to="/detail">
-                        <img src="/images/viewers-marvel.png"></img>
-                    </Link>
-                </Wrap>
-                <Wrap>
-                    <Link to="/detail">
-                        <img src="/images/viewers-marvel.png"></img>
-                    </Link>
-                </Wrap>
-                <Wrap>
-                    <Link to="/detail">
-                        <img src="/images/viewers-marvel.png"></img>
-                    </Link>
-                </Wrap>
+                </Wrap>))}                
             </Content>
         </Container>
     );
