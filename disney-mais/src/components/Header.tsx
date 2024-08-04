@@ -11,12 +11,7 @@ const Header: React.FC<HeaderProps> = (props) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { loading, currentUser, error } = useSelector((state: RootState) => state.currentUser);
-
-    // useEffect(() => {
-    //     dispatch(fetchUser());
-    //     if (currentUser) alert('hwy');        
-    // }, [dispatch]);
-
+    
     useEffect(() => {
         if (currentUser) {
             navigate('/home');
