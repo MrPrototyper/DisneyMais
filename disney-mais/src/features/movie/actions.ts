@@ -1,8 +1,8 @@
 import { ThunkAction } from "redux-thunk";
-import { GET_ALL_MOVIES_FAILURE, GET_ALL_MOVIES_REQUEST, GET_ALL_MOVIES_SUCCESS } from "./actionTypes";
+import { GET_ALL_MOVIES_FAILURE, GET_ALL_MOVIES_REQUEST, GET_ALL_MOVIES_SUCCESS, GET_MOVIES_BY_ID_FAILURE, GET_MOVIES_BY_ID_REQUEST, GET_MOVIES_BY_ID_SUCCESS } from "./actionTypes";
 import { Movie } from "./movie";
 import { RootState } from "../../store/store";
-import { getMovieData } from "./api";
+import { getMovieByIdData, getMovieData } from "./api";
 
 interface GetAllMoviesRequestAction {
     type: typeof GET_ALL_MOVIES_REQUEST;
@@ -21,6 +21,18 @@ interface GetAllMoviesFailureAction {
     payload: string;
 }
 
+interface GetlMoviesByIdRequestAction {
+    type: typeof GET_MOVIES_BY_ID_REQUEST;
+}
+interface GetlMoviesByIdSuccessAction {
+    type: typeof GET_MOVIES_BY_ID_SUCCESS;
+    payload: Movie;
+}
+interface GetlMoviesByIdFailureAction {
+    type: typeof GET_MOVIES_BY_ID_FAILURE;
+    payload: string;
+}
+
 export const getAllMoviesRequest = (): GetAllMoviesRequestAction => ({
     type: GET_ALL_MOVIES_REQUEST,
 });
@@ -35,16 +47,43 @@ export const getAllMoviesFailure = (error: string): GetAllMoviesFailureAction =>
     payload: error,
 });
 
+export const getMovieByIdRequest = (id: number): GetlMoviesByIdRequestAction => ({
+    type: GET_MOVIES_BY_ID_REQUEST,
+});
+
+export const getMovieByIdSuccess = (movie: Movie): GetlMoviesByIdSuccessAction => ({
+    type: GET_MOVIES_BY_ID_SUCCESS,
+    payload: movie,
+});
+
+export const getMovieByIdFailure = (error: string): GetlMoviesByIdFailureAction => ({
+    type: GET_MOVIES_BY_ID_FAILURE,
+    payload: error,
+});
+
 export const getAllMovies = (): ThunkAction<void, RootState, unknown, MovieActionTypes> => async dispatch => {
     dispatch(getAllMoviesRequest());
     try {
-        const data = await getMovieData();        
+        const data = await getMovieData();
         dispatch(getAllMoviesSuccess(data));
     } catch (error: any) {
         dispatch(getAllMoviesFailure(error.message));
     }
 };
 
+export const getMovieById = (id: number): ThunkAction<void, RootState, unknown, MovieActionTypes> => async dispatch => {    
+    dispatch(getMovieByIdRequest(id));
+    try {
+        const data = await getMovieByIdData(id);
+        dispatch(getMovieByIdSuccess(data));
+    } catch (error: any) {
+        dispatch(getMovieByIdFailure(error.message));
+    }
+};
+
 export type MovieActionTypes = GetAllMoviesRequestAction |
     GetAllMoviesSuccessAction |
-    GetAllMoviesFailureAction;
+    GetAllMoviesFailureAction |
+    GetlMoviesByIdRequestAction |
+    GetlMoviesByIdSuccessAction |
+    GetlMoviesByIdFailureAction;
