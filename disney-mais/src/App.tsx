@@ -7,6 +7,13 @@ import SignUp from './components/SignUp';
 import LoginStep1 from './components/Login/LoginStep1';
 import LoginStep2 from './components/Login/LoginStep2';
 import Register from './components/Login/Register';
+import withAuthGuard from './withAuthGuard';
+
+const isAuthenticated = (): boolean => {
+  return localStorage.getItem('authToken') !== null;  
+};
+
+const ProtectedHome = withAuthGuard(Home);
 
 function App() {
   return (
@@ -15,7 +22,7 @@ function App() {
           <Header />          
           <Routes>            
             <Route path="/" element={<SignUp />} />            
-            <Route path="/home" element={<Home />} />            
+            <Route path="/home" element={<ProtectedHome isAuthenticated={isAuthenticated()} />} />            
             <Route path="/detail/:id" element={<Detail />} />
             <Route path="/login/enter-email" element={<LoginStep1 />} />
             <Route path="/login/enter-password" element={<LoginStep2 />} />
