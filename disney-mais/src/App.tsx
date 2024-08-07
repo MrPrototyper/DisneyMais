@@ -7,7 +7,7 @@ import SignUp from './components/SignUp';
 import LoginStep1 from './components/Login/LoginStep1';
 import LoginStep2 from './components/Login/LoginStep2';
 import Register from './components/Login/Register';
-import withAuthGuard from './withAuthGuard';
+import withAuthGuard from './hocs/withAuthGuard';
 
 const isAuthenticated = (): boolean => {
   return localStorage.getItem('authToken') !== null;  
