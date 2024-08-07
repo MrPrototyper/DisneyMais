@@ -4,7 +4,9 @@ import Header from './components/Header';
 import Home from './components/Home';
 import Detail from './components/Detail';
 import SignUp from './components/SignUp';
-import Login from './components/Login';
+import LoginStep1 from './components/Login/LoginStep1';
+import LoginStep2 from './components/Login/LoginStep2';
+import Register from './components/Login/Register';
 
 function App() {
   return (
@@ -15,7 +17,9 @@ function App() {
             <Route path="/" element={<SignUp />} />            
             <Route path="/home" element={<Home />} />            
             <Route path="/detail/:id" element={<Detail />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login/enter-email" element={<LoginStep1 />} />
+            <Route path="/login/enter-password" element={<LoginStep2 />} />
+            <Route path="/sign-up/create-password" element={<Register />} />
           </Routes>        
       </Router>     
     </div>
