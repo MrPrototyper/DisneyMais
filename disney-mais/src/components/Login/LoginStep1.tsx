@@ -1,10 +1,40 @@
+import React, { useRef, useState } from 'react';
 import styled from "styled-components"
 import FloatingLabelInput from "./FloatingLabelInput";
-import { Box, Button, Container, Content, Footer, Line, Logo, Message, Step, Title, WhiteLogo } from "./Login.styles";
+import { Box, Button, Container, Content, Footer, InputInfo, Line, Logo, Message, Step, Title, WhiteLogo } from "./Login.styles";
+import { useNavigate } from "react-router-dom";
 
 interface LoginStep1Props {}
 
-const LoginStep1: React.FC<LoginStep1Props> = (props) => {
+const validateEmail = (email: string) => {
+    const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return re.test(String(email).toLowerCase());
+};
+
+const LoginStep1: React.FC<LoginStep1Props> = () => {
+    // const emailRef = useRef<HTMLInputElement>(null);
+    const [email, setEmail] = useState<string>('');
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+    const navigate = useNavigate();      
+    const handleContinue = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();        
+        // const email = emailRef.current?.value;
+
+        if (!email) {
+            setErrorMessage('Email is required');
+        } else if (!validateEmail(email)) {
+            setErrorMessage('Invalid email address');
+        } else {
+            setErrorMessage(null);      
+            navigate('/login/enter-password');
+        }        
+    }
+
+    const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(e.target.value);  // Update state with new email value
+    };
+    
     return (
         <Container>
             <WhiteLogo>
@@ -20,9 +50,12 @@ const LoginStep1: React.FC<LoginStep1Props> = (props) => {
                     <Title>Enter your email address to continue</Title>
                     <Message>
                         <div>Log in to Disney+ with your MyDisney account. If you don't have one, you will be prompted to create one.</div>                    
-                    </Message>                    
-                    <FloatingLabelInput label="Email" />
-                    <Button>Continue</Button>
+                    </Message>                     
+                    <form  onSubmit={handleContinue}>                        
+                        <FloatingLabelInput label="Email" value={email} onChange={handleEmailChange}/>
+                        <InputInfo type="error">{errorMessage ? errorMessage : null}</InputInfo>
+                        <Button type="submit">Continue</Button>                        
+                    </form>
                 </Content>
                 <Line />
                 <Footer>

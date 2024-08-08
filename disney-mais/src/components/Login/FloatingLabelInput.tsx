@@ -1,32 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, forwardRef } from "react";
 import styled from "styled-components";
 
 interface FloatingLabelInputProps {
     label:string;
+    value?: string;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const FloatingLabelInput: React.FC<FloatingLabelInputProps> = ({ label, ...props }) => {
-    const [focused, setFocused] = useState(false);
-    const [value, setValue] = useState('');
+const FloatingLabelInput = forwardRef<HTMLInputElement, FloatingLabelInputProps>(({ label, value, ...props }, ref) => {
+    const [focused, setFocused] = useState(false);    
 
     const handleFocus = () => setFocused(true);
-    const handleBlur = () => setFocused(false);
-    const handleChange = (e: any) => setValue(e.target.value);
+    const handleBlur = () => setFocused(false);    
 
     return (
         <InputContainer>
             <StyledInput
                 {...props}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-                onChange={handleChange}
+                ref={ref}
                 value={value}
+                onFocus={handleFocus}
+                onBlur={handleBlur}                                
                 placeholder=" "
             />
-            <StyledLabel focused={focused}>{label}</StyledLabel>
+            <StyledLabel focused={focused || !!value }>{label}</StyledLabel>
         </InputContainer>
     );
-};
+});
 
 const InputContainer = styled.div`
     position: relative;   

@@ -1,10 +1,16 @@
 import styled from "styled-components"
 import FloatingLabelInput from "./FloatingLabelInput";
 import { Box, Button, Container, Content, Footer, InputInfo, Line, Logo, Message, Step, Title, WhiteLogo } from "./Login.styles";
+import { useNavigate } from "react-router-dom";
 
 interface LoginStep2Props {}
 
 const LoginStep2: React.FC<LoginStep2Props> = (props) => {
+    const navigate = useNavigate();
+    
+    const handleLogIn = () => {
+        navigate('/login/home');
+    }
     return (
         <Container>
             <WhiteLogo>
@@ -23,8 +29,8 @@ const LoginStep2: React.FC<LoginStep2Props> = (props) => {
                         <div><strong>tiagoc@gmail.com</strong> (<a>edit</a>)</div>
                     </Message>                    
                     <FloatingLabelInput label="Password" />
-                    <InputInfo>(Case sensitive)</InputInfo>
-                    <Button>Log In</Button>
+                    <InputInfo type="info">(Case sensitive)</InputInfo>
+                    <Button onClick={handleLogIn}>Log In</Button>
                 </Content>
                 <Line />
                 <Footer>

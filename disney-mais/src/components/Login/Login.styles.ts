@@ -143,12 +143,12 @@ export const Line = styled.div`
     background: #e0e0e0;    
 `;
 
-export const InputInfo = styled.div`
-        font-weight: 100;
-        font-size: 13px;        
-        color:#666;
-        margin: 0;
-        padding: 0;
-        margin-bottom: 20px;
-    `;
+export const InputInfo = styled.div< { type: 'error' | 'info'}>`
+    font-weight: 100;
+    font-size: 13px;        
+    color: ${({ type }) => (type === 'error' ? 'red' : '#666')};
+    margin: 0;
+    padding: 0;
+    margin-bottom: 20px;
+`;
 

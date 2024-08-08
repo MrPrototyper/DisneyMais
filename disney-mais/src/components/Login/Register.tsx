@@ -24,7 +24,7 @@ const Register: React.FC<RegisterProps> = (props) => {
                         <div style={{ marginTop: '20px', marginBottom: '20px', fontSize: '18px', letterSpacing: '1.4'}}>Create your account using <strong>tiagoc@gmail.com</strong> (<a>edit</a>)</div>
                     </Message>                    
                     <FloatingLabelInput label="Choose a password" />
-                    <InputInfo>Use a minimum of 6 characters (case sensitive) with at least one number or special character.</InputInfo>
+                    <InputInfo type="info">Use a minimum of 6 characters (case sensitive) with at least one number or special character.</InputInfo>
                     <CheckBoxInput label='' />                    
                 </Content>                
                 <Footer>

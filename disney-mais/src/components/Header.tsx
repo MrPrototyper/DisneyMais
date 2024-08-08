@@ -14,7 +14,7 @@ const Header: React.FC<HeaderProps> = (props) => {
     
     useEffect(() => {
         if (currentUser) {
-            navigate('/home');
+            navigate('/login/enter-email');
         }
     }, [currentUser]);
 
