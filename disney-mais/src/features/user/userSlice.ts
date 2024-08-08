@@ -1,15 +1,17 @@
-import { FETCH_USER_REQUEST, FETCH_USER_SUCCESS, FETCH_USER_FAILURE, LOGIN_USER, LOGIN_USER_FAILURE, LOGIN_USER_SUCCESS, LOGOUT_USER } from "./actionTypes";
+import { FETCH_USER_REQUEST, FETCH_USER_SUCCESS, FETCH_USER_FAILURE, LOGIN_USER, LOGIN_USER_FAILURE, LOGIN_USER_SUCCESS, LOGOUT_USER, SET_LOGIN_EMAIL } from "./actionTypes";
 import { User } from './user';
 
 interface UserState {
     loading: boolean;
     currentUser: User | null;
+    loginInfo: {email: string | null, password: string | null} | null;
     error: string | null;
 }
 
 const initialState: UserState = {
     loading: false,
     currentUser: null,
+    loginInfo: null,
     error: null,
 };
 
@@ -29,6 +31,8 @@ export const userReducer = (state = initialState, action: any): UserState => {
             return { ...state, loading: false, error: action.payload };
         case LOGOUT_USER:
             return { ...state, currentUser: null };
+        case SET_LOGIN_EMAIL:
+            return { ...state, loginInfo: action.payload };
         default:
             return state;
     }

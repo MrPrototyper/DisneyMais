@@ -2,15 +2,46 @@ import styled from "styled-components"
 import FloatingLabelInput from "./FloatingLabelInput";
 import { Box, Button, Container, Content, Footer, InputInfo, Line, Logo, Message, Step, Title, WhiteLogo } from "./Login.styles";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { loginUser } from "../../features/user/actions";
+import { RootState } from "../../store/store";
+import { useDispatch, useSelector } from "react-redux";
 
 interface LoginStep2Props {}
 
-const LoginStep2: React.FC<LoginStep2Props> = (props) => {
+const LoginStep2: React.FC<LoginStep2Props> = () => {    
+    const [password, setPassword] = useState<string>('');
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const { loading, currentUser, error } = useSelector((state: RootState) => state.currentUser);
+    const { loginInfo } = useSelector((state: RootState) => state.loginInfo);
+
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-    
+
+    useEffect(() => {
+        if (currentUser) {
+            navigate('/home');
+        }
+    }, [currentUser]);
+
+    const login = (email: string, password: string) => {        
+        dispatch(loginUser({ email: email, password: password }))
+    }    
     const handleLogIn = () => {
-        navigate('/login/home');
+        login('tiagoc@gmail', password);
+
+        if (!password) {            
+            setErrorMessage('Password is required');
+        } else if (!currentUser && !loading) {            
+            setErrorMessage('We couldn’t log you in. Please check your email and password and try again. If you can’t remember your details, use the ‘Having trouble logging in? Send a one-time code’ link below.');
+        } else {            
+            setErrorMessage('Something went wrong. Please refresh the page.');            
+        }              
     }
+    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.target.value);
+    };
+
     return (
         <Container>
             <WhiteLogo>
@@ -26,10 +57,10 @@ const LoginStep2: React.FC<LoginStep2Props> = (props) => {
                     <Title>Enter your password</Title>
                     <Message>
                         <div>Log in to Disney+ with your MyDisney account using email:</div>
-                        <div><strong>tiagoc@gmail.com</strong> (<a>edit</a>)</div>
+                        <div><strong>{loginInfo?.email}</strong> (<a>edit</a>)</div>
                     </Message>                    
-                    <FloatingLabelInput label="Password" />
-                    <InputInfo type="info">(Case sensitive)</InputInfo>
+                    <FloatingLabelInput label='Password' value={password} onChange={handlePasswordChange}/>
+                    <InputInfo type={errorMessage ? 'error' : 'info'}>{errorMessage ? errorMessage : '(Case sensitive)'}</InputInfo>
                     <Button onClick={handleLogIn}>Log In</Button>
                 </Content>
                 <Line />
@@ -67,8 +98,5 @@ const LoginStep2: React.FC<LoginStep2Props> = (props) => {
             height: auto;
         }
     `;
-
-    
-
 
 export default LoginStep2;

@@ -1,8 +1,10 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import styled from "styled-components"
 import FloatingLabelInput from "./FloatingLabelInput";
 import { Box, Button, Container, Content, Footer, InputInfo, Line, Logo, Message, Step, Title, WhiteLogo } from "./Login.styles";
 import { useNavigate } from "react-router-dom";
+import { setUserEmail } from '../../features/user/actions';
+import { useDispatch } from 'react-redux';
 
 interface LoginStep1Props {}
 
@@ -11,22 +13,21 @@ const validateEmail = (email: string) => {
     return re.test(String(email).toLowerCase());
 };
 
-const LoginStep1: React.FC<LoginStep1Props> = () => {
-    // const emailRef = useRef<HTMLInputElement>(null);
+const LoginStep1: React.FC<LoginStep1Props> = () => {    
     const [email, setEmail] = useState<string>('');
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+    const dispatch = useDispatch();
     const navigate = useNavigate();      
     const handleContinue = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();        
-        // const email = emailRef.current?.value;
-
+        e.preventDefault();                
         if (!email) {
             setErrorMessage('Email is required');
         } else if (!validateEmail(email)) {
             setErrorMessage('Invalid email address');
         } else {
-            setErrorMessage(null);      
+            setErrorMessage(null);
+            dispatch(setUserEmail(email));      
             navigate('/login/enter-password');
         }        
     }
