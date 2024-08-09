@@ -9,12 +9,12 @@ import LoginStep2 from './components/Login/LoginStep2';
 import Register from './components/Login/Register';
 import withAuthGuard from './hocs/withAuthGuard';
 
-const isAuthenticated = (): boolean => {
-  // return localStorage.getItem('authToken') !== null;  
-  return true;
-};
-
 const ProtectedHome = withAuthGuard(Home);
+const ProtectedDetail = withAuthGuard(Detail);
+
+const isAuthenticated = (): boolean => {
+  return localStorage.getItem('currentUser') !== null;    
+};
 
 function App() {
   return (
@@ -24,7 +24,7 @@ function App() {
           <Routes>            
             <Route path="/" element={<SignUp />} />            
             <Route path="/home" element={<ProtectedHome isAuthenticated={isAuthenticated()} />} />            
-            <Route path="/detail/:id" element={<Detail />} />
+            <Route path="/detail/:id" element={<ProtectedDetail isAuthenticated={isAuthenticated()} />} />
             <Route path="/login/enter-email" element={<LoginStep1 />} />
             <Route path="/login/enter-password" element={<LoginStep2 />} />
             <Route path="/sign-up/create-password" element={<Register />} />

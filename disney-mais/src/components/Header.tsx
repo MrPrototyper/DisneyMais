@@ -12,8 +12,14 @@ const Header: React.FC<HeaderProps> = (props) => {
     const navigate = useNavigate();
     const { loading, currentUser, error } = useSelector((state: RootState) => state.currentUser);
 
-    const handleLogin = () => {
-        dispatch(loginUser({ email: 'tiago@disney.com', password: '123456' }));        
+    useEffect(() => {
+        if (currentUser) {
+            navigate('/home');
+        }
+    }, [currentUser]);
+
+    const handleLogin = () => {        
+        navigate('/login/enter-email');
     }
 
     const handleLogout = () => {

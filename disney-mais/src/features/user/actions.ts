@@ -21,7 +21,7 @@ interface LoginUserAction {
 }
 interface LoginUserSuccessAction {
   type: typeof LOGIN_USER_SUCCESS;
-  payload: boolean;
+  payload: User;
 }
 interface LoginUserFailureAction {
   type: typeof LOGIN_USER_FAILURE;
@@ -65,7 +65,7 @@ export const loginUserRequest = (): LoginUserAction => ({
   type: LOGIN_USER,
 });
 
-export const loginUserSuccess = (response: boolean): LoginUserSuccessAction => ({
+export const loginUserSuccess = (response: User): LoginUserSuccessAction => ({
   type: LOGIN_USER_SUCCESS,
   payload: response,
 });
@@ -75,7 +75,7 @@ export const loginUserFailure = (error: string): LoginUserFailureAction => ({
   payload: error,
 });
 
-export const logoutUser = (): LogoutUserAction => ({
+export const logoutUserRequest = (): LogoutUserAction => ({
   type: LOGOUT_USER,  
 });
 
@@ -88,12 +88,26 @@ export const loginUser = (loginInfo: {email: string, password: string}): ThunkAc
   dispatch(loginUserRequest());
   try {
     const resp = await triggerLogin(loginInfo);
-    dispatch(loginUserSuccess(resp));
-    if (resp) {      
-      dispatch(fetchUserSuccess({name: 'Tiago', email: 'tiago@disney.com', photo: 'https://via.placeholder.com/150'}));
+    if (resp) {
+      saveToLocalStorage('currentUser', resp);
+      dispatch(loginUserSuccess(resp));
     }
   } catch (error: any) {
     dispatch(loginUserFailure(error.message));
+  }
+};
+
+export const logoutUser = (): ThunkAction<void, RootState, unknown, UserActionTypes> => async dispatch => {
+  dispatch(logoutUserRequest());
+  localStorage.removeItem('currentUser');  
+};
+
+const saveToLocalStorage = <T,>(key: string, value: T): void => {
+  try {
+      const serializedValue = JSON.stringify(value);
+      localStorage.setItem(key, serializedValue);
+  } catch (error) {
+      console.error('Error saving to local storage', error);
   }
 };
 
@@ -102,4 +116,5 @@ export type UserActionTypes = FetchUserRequestAction |
   FetchUserFailureAction |
   LoginUserAction |
   LoginUserSuccessAction |
+  LogoutUserAction |
   LoginUserFailureAction;

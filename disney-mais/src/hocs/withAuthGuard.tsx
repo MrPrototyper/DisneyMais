@@ -8,7 +8,7 @@ interface AuthGuardProps {
 const withAuthGuard = <P extends object>(MyComponent: ComponentType<P>) => {
     const WrappedComponent: React.FC<AuthGuardProps & P> = ({ isAuthenticated, ...rest }) => {
         if (!isAuthenticated) {
-            return <Navigate to="/login" />;
+            return <Navigate to="/login/enter-email" />;
         }
         return <MyComponent {...(rest as P)} />;
     };

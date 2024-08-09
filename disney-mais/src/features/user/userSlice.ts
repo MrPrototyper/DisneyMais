@@ -26,10 +26,10 @@ export const userReducer = (state = initialState, action: any): UserState => {
         case LOGIN_USER:
             return { ...state, loading: true, error: null };
         case LOGIN_USER_SUCCESS:
-            return { ...state, loading: false };
+            return { ...state, loading: false, currentUser: action.payload };
         case LOGIN_USER_FAILURE:
             return { ...state, loading: false, error: action.payload };
-        case LOGOUT_USER:
+        case LOGOUT_USER:            
             return { ...state, currentUser: null };
         case SET_LOGIN_EMAIL:
             return { ...state, loginInfo: action.payload };

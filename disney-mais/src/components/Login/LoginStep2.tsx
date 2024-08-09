@@ -23,24 +23,23 @@ const LoginStep2: React.FC<LoginStep2Props> = () => {
             navigate('/home');
         }
     }, [currentUser]);
-
-    const login = (email: string, password: string) => {        
-        dispatch(loginUser({ email: email, password: password }))
-    }    
-    const handleLogIn = () => {
-        login('tiagoc@gmail', password);
-
-        if (!password) {            
+        
+    const handleLogIn = async () => {
+        if (password && loginInfo?.email) {
+            await dispatch(loginUser({ email: loginInfo.email, password: password }));
+            if (!currentUser && !loading) {            
+                setErrorMessage('We couldn’t log you in. Please check your email and password and try again. If you can’t remember your details, use the ‘Having trouble logging in? Send a one-time code’ link below.');
+            }
+        } else {
             setErrorMessage('Password is required');
-        } else if (!currentUser && !loading) {            
-            setErrorMessage('We couldn’t log you in. Please check your email and password and try again. If you can’t remember your details, use the ‘Having trouble logging in? Send a one-time code’ link below.');
-        } else {            
-            setErrorMessage('Something went wrong. Please refresh the page.');            
-        }              
+        }
     }
     const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value);
     };
+    const navigateToEmailView = () => {
+        navigate('/login/enter-email');
+    }
 
     return (
         <Container>
@@ -57,7 +56,7 @@ const LoginStep2: React.FC<LoginStep2Props> = () => {
                     <Title>Enter your password</Title>
                     <Message>
                         <div>Log in to Disney+ with your MyDisney account using email:</div>
-                        <div><strong>{loginInfo?.email}</strong> (<a>edit</a>)</div>
+                        <div><strong>{loginInfo?.email}</strong> (<a onClick={ navigateToEmailView }>edit</a>)</div>
                     </Message>                    
                     <FloatingLabelInput label='Password' value={password} onChange={handlePasswordChange}/>
                     <InputInfo type={errorMessage ? 'error' : 'info'}>{errorMessage ? errorMessage : '(Case sensitive)'}</InputInfo>
