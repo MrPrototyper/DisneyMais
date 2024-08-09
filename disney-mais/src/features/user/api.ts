@@ -14,8 +14,19 @@ export const fetchUserData = async (): Promise<User | null> => {
     return null;
 };
 
-export const triggerLogin = async (loginInfo: {email: string, password: string}): Promise<boolean> => {
+export const triggerLogin = async (loginInfo: {email: string, password: string}): Promise<User | null> => {
     // const response = await axios.get(`${API_URL}/todos`);
     // return response.data;    
-    return true;
+    return {        
+        email: 'doe.jonh@disney.fake',
+        photo: 'https://via.placeholder.com/150',
+    }    
+    // return null;
 };
+
+export const postUserData = async (user: {email:string, password: string}): Promise<User> => {
+    return {        
+        email: 'doe.jonh@disney.fake',
+        photo: 'https://via.placeholder.com/150',
+    }
+}
