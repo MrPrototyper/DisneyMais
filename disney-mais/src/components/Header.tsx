@@ -60,14 +60,13 @@ const Header: React.FC<HeaderProps> = (props) => {
                     </a>
                 </NavMenu> : null
             }{
-                !currentUser ? <Login onClick={handleLogin}>LOG IN</Login> :
-                    (currentUser && currentUser.photo && currentUser.name) ? 
+                !currentUser ? <Login onClick={handleLogin}>LOG IN</Login> :                    
                     <SignOut>
-                        <UserImg src={currentUser.photo} alt={currentUser.name} />
+                        <UserImg src={currentUser.photo} />
                         <DropDown>                            
                             <span onClick={handleLogout}>Sign out</span>
                         </DropDown>
-                    </SignOut> : null                    
+                    </SignOut>
             }
         </Nav>
     );

@@ -1,10 +1,13 @@
 import styled from 'styled-components';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { setUserEmail } from '../features/user/actions';
+import { useDispatch } from 'react-redux';
 
 interface SignUpProps {}
 
 const SignUp: React.FC<SignUpProps> = () => {
+    const dispatch = useDispatch();
     const navigate =  useNavigate();
     const [email, setEmail] = useState<string>('');
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -13,6 +16,7 @@ const SignUp: React.FC<SignUpProps> = () => {
         if (email === '') {
             setErrorMessage('Please enter a valid email address.');
         } else {
+            dispatch(setUserEmail(email));
             navigate('/sign-up/create-password');
         }        
     }
