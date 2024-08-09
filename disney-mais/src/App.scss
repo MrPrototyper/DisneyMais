@@ -1,3 +1,18 @@
+@font-face {
+  font-family: 'Inspire';
+  src: url('./fonts/Inspire-Regular.woff2') format('woff2');       
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Inspire';
+  src: url('./fonts/Inspire-Bold.woff2') format('woff2');       
+  font-weight: bold;
+  font-style: normal;
+}
+
+
 * {
   box-sizing: border-box;
 }
@@ -10,7 +25,7 @@ body {
   background-color: #040714;
   color: #f9f9f9;
 
-  font-family: Avenir-Roman, sans-serif;
+  font-family: Inspire, sans-serif;
   margin: 0;
   padding: 0;
 }

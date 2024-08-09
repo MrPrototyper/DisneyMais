@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import React from 'react';
 
-interface LoginProps {}
+interface SignUpProps {}
 
-const Login: React.FC<LoginProps> = (props) => {
+const SignUp: React.FC<SignUpProps> = (props) => {
     return (
         <Container>
             <Content>
@@ -177,4 +177,4 @@ const textWithMarginBottom: React.CSSProperties = {
     marginTop: '20px',
 }
 
-export default Login;
+export default SignUp;
